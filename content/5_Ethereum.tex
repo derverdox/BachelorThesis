@@ -1,0 +1,87 @@
+\chapter{Ethereum and Smart Contracts}
+The Ethereum blockchain allows code execution designed in a smart contract language like \textbf{Solidity}. 
+As a result, a game can execute primarily defined methods of the smart contract. 
+Using these contracts makes it possible to store in-game items, weapons, or character statistics on Ethereum. \cite{buterin2014}
+
+\section{Ethereum Virtual Machine}
+Like Bitcoin, Ethereum is a decentralized network that agrees on a network state.
+A state is a collection of accounts with a 20-byte address.
+Every account stores its Ether balance, a contract code if one was provided in bytecode form, and a contract storage, which is divided into three types.
+First, there is long-term storage that uses key-value pairs to store data.
+To create variables temporarily, developers can use the stack or the memory.
+
+Further, two types of accounts are described. The first one is a standard user account controlled with a private key. 
+They only issue external transactions, meaning transactions from outside the blockchain.
+The second one is a contract account that controls its smart contract. 
+They can also issue internal transactions from one smart contract to another.
+Receiving a transaction as a contract account always leads to a code execution and, thus, to a state change. \cite{ethereum_virtual_machine}
+The fact that the blockchain executes Turing-complete code leads to the term \textbf{Ethereum Virtual Machine} because the network acts as one computer system.
+
+However, code execution does not happen instantaneously. 
+Like regular transactions, a code execution transaction needs verification in a block.
+Thus, standard money transfers and code executions compete for block space, resulting in transaction fees, called gas, measured in wei. 
+One wei equals 0.000000000000000001 Ether.
+Depending on the network usage, the cost of gas changes.
+In addition, a user can provide a gas limit when issuing a transaction to prevent unintended execution of poorly programmed smart contracts.
+As a result, developers of smart contracts are heavily incentivized to write high-performance code that uses storage effectively.
+Consequently, infinite loops are avoided. 
+Crashing the whole network would cost a tremendous amount of Ether, which makes it a wasteful effort.
+
+\section{Smart Contracts in Game Development}
+Since the EVM bytecode is Turing-complete, many different things can be done using programming languages like Solidity.
+This chapter will show some approaches to implementing game-related data using Solidity, the most commonly used smart contract language.
+It is a high-level, object-oriented, statically typed programming language.
+It supports various concepts of object-oriented programming, such as inheritance, interfaces, abstract classes, and structures.
+
+\clearpage
+\subsection{Smart Contract Implementation: Virtual Pets}
+
+\begin{framed}
+\textbf{Implementation: } Virtual Pet \medskip \hrule \medskip
+\textbf{Used Contract: } ERC-721 Non-Fungible Token Standard\medskip \hrule \medskip
+\textbf{Details:}  This example shows how to implement so-called Virtual Pets using Solidity.
+The contract is based on the ERC-721 NFT standard. 
+Everyone can create a new pet by using the createNewPet() function.
+The function mints a new ERC-721 token and randomly draws properties for the new pet.
+\end{framed}
+First, some pet properties are defined in the contract.
+\lstinputlisting[language=Solidity,linerange={3-16}, caption=Solidity pet properties, label=Solidity pet properties]{listings/VirtualPet.sol}
+
+However, every pet should have different properties, so functions to generate them randomly are needed.
+In addition, pet sizes should have different probabilities.
+\lstinputlisting[language=Solidity,linerange={43-54}, caption=Solidty pet property creation, label=Solidty pet property creation]{listings/VirtualPet.sol}
+\lstinputlisting[language=Solidity,linerange={56-67}, caption=Solidty pet property random function, label=Solidty pet property random function]{listings/VirtualPet.sol}
+
+The random number functions used for this example are deterministic due to the nature of the EVM not having any byte code functionality to create true randomness.
+\lstinputlisting[language=Solidity,linerange={71-78}, caption=Solidity random functions, label=Solidity random functions]{listings/VirtualPet.sol}
+
+Finally, a function to create a new pet is implemented. 
+In addition, a function to obtain the pet properties is also needed so they can be used in a game.
+\lstinputlisting[language=Solidity,linerange={18-35}, caption=Solidty pet creation function, label=Solidty pet creation function]{listings/VirtualPet.sol}
+\newpage
+Then, a getter for external function calls from the Unity game implementation is created.
+\lstinputlisting[language=Solidity,linerange={36-39}, caption=Solidity pet property getter, label=Solidity pet property getter]{listings/VirtualPet.sol}
+\clearpage
+
+\subsection{Unity Implementation: Using Virtual Pets in a Game}
+After publishing the virtual pet smart contract on an EVM blockchain like Ethereum, a game engine like Unity can communicate with it.
+For this purpose, the Thirdweb SDK will be used \cite{thirdweb_sdk}.
+
+Code to set up the player wallet for further smart contract interactions.
+\lstinputlisting[language={[Sharp]C},linerange={3-20},caption=Setup Code, label=Setup Code]{listings/UnityImplementation.cs}
+
+Example code to call a read function on the smart contract and do something afterward.
+\lstinputlisting[language={[Sharp]C},linerange={22-29},caption=Read interaction, label=Read interaction]{listings/UnityImplementation.cs}
+
+\newpage
+Example code to call a write function on the smart contract and do something afterward.
+\lstinputlisting[language={[Sharp]C},linerange={31-39},caption=Write Interaction, label=Write Interaction]{listings/UnityImplementation.cs}
+
+Helper function to obtain an object representation of the smart contract.
+\lstinputlisting[language={[Sharp]C},linerange={43-46},caption=Smart contract loading, label=Smart contract loading]{listings/UnityImplementation.cs}
+
+Helper function to call the getPetProperties() function of the smart contract.
+\lstinputlisting[language={[Sharp]C},linerange={48-51},caption=Get per properties, label=Get per properties]{listings/UnityImplementation.cs}
+
+Helper function to call the createNewPet() function of the smart contract.
+\lstinputlisting[language={[Sharp]C},linerange={53-56},caption=Call create new pet function, label=Call create new pet function]{listings/UnityImplementation.cs}

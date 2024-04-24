@@ -1,0 +1,406 @@
+\chapter{History}
+It is essential to look at the technological pioneers to understand how blockchains work, what led to their invention, and what they are useful for.
+In the 1980s, the \textbf{Cypherpunk movement} emerged.
+Inspired by the ideas of David Chaum, they believed in cryptography to weaken the governmental influence in the digital realm.
+The use of cryptographic algorithms could enhance people's privacy.
+These ideas consequently result in a concept called crypto-anarchism.
+While a government enforces laws, crypto-anarchism solely relies on laws written in code and provable by math.
+These technologies are essential to guarantee privacy, especially in countries with poor human rights or corruption.
+Hence, digital money is also an important research field since money transactions reveal much about the person behind it. \cite{Narayanan2013}
+
+\section{Problems of digital cash}
+Over the years, many different concepts were designed to solve the problems of digital cash.
+Before looking into these protocols, the problems need to be defined.
+
+\subsection{Double-Spending}
+Double-spending describes the situation where money is spent twice simultaneously. 
+However, When someone receives money, they must be sure that it belongs to them now and that it was not spent twice at the same time.
+This problem is only severe in decentralized networks because a centralized database would know the rightful owners of a money unit at any given moment, thus solving the problem.
+Accordingly, when a trusted third party must be excluded, the problem is not trivial anymore.
+The network must agree on a network state that contains every user's balances.
+Whenever someone performs a money transaction, the state of the network defined by all the data it shares changes.
+When the network is distributed across substantial geographical distances, users might issue two transactions simultaneously and spread them to different network parts.
+These two parts would then accept different states, which makes reaching a network consensus impossible.
+The network must find a solution to problems like this to prevent any double-spending attempts. \cite{chowan2021}
+
+\subsection{Inflation}
+When dealing with digital information, every bit is copyable.
+Given that the Cypherpunks did not want to use a central database to control the money supply, a solution had to be found to create a form of digital scarcity that no one could control.
+If one money unit were a regular file, everyone could copy it before spending it online.
+This action would not only inflate the money supply and thus make it worthless but also make double-spending possible.
+A suitable protocol must find a way to control the money supply on a decentralized basis.
+Therefore, the money creation process must have two properties.
+Firstly, it must be unaffected by technological progress.
+With faster computers in the future, the algorithm to create money cannot generate more money the faster or more often it is executed.
+Secondly, it cannot grant selected network participants exclusive control over it.
+
+
+\subsection{Byzantine General's Problem}
+Inflation and double-spending are solvable problems by agreeing on a network state.
+However, in a decentralized network, every user has the same rights.
+Consequently, bad actors are also allowed and cannot be banned.
+Instead of excluding them, the protocol must be resilient against manipulation or tampering.
+The Byzantine Generals Problem is a thought experiment that illustrates this situation.
+It describes a scene where the Byzantine army besieges an enemy castle.
+The army consists of many small groups of soldiers, each controlled by a general.
+In order to win the battle and take the castle, the generals must devise a plan.
+Nevertheless, they can only communicate via messengers because they are geographically separated.
+Since some generals may be traitors, a consensus mechanism must be found that makes it possible to find a valid strategy as long as most generals are loyal.
+In a computer context, the generals are nodes in a distributed network.
+The nodes want to reach a consensus on a network state while bad actors are possible.
+The resilience against those bad actors influencing a network consensus is called byzantine fault tolerance.
+\cite{lamport2019byzantine}
+
+\subsection{Sybil Attack}
+The Byzantine general's problem is solvable if there are enough honest nodes in a decentralized network.
+Thus, an attacker would try to create many fake identities, make them join the network, and force a different consensus.
+This process is called a Sybil attack.
+The problem can be solved by designing the protocol to make Sybil attacks very difficult or uneconomical for the attacker.
+If the cost of performing an attack would be much higher than the reward, it is much less likely that someone would try to carry out such an attack.
+\cite{Douceur2002}
+
+\section{Cryptography}
+Besides problems related to digital cash, digital privacy is also an important topic, achievable using modern cryptography.
+It describes the information encoding process to a ciphertext so only designated entities can decrypt it back to plaintext.
+
+The beginnings of cryptography go back to early human history.
+Even the Greeks used special sticks with tape that would be used to encode a message.
+The message could not be recovered if the tape was removed from the stick.
+A second example is the Caesar Shift Cipher of the Roman Empire. \cite{Damico2009}
+
+In 1918, Arthur Scherbius invented the Enigma machine to encrypt a message automatically.
+The device had three disks. The first would encode a plaintext letter into a cipher letter.
+Consequently, the other two disks would repeat the encoding process so that a letter would be encoded three times.
+The Allied forces tried to decrypt the machine since the Third Reich used it for military communication during the Second World War.
+Alan Turing then cracked the code by inventing machines that could simulate the enigma to decrypt the enemy's communication.
+A great help would be that the messages contained military keywords that could be used to search for patterns. \cite{Crato2010}
+However, modern-day cryptography is more advanced than the enigma machine. 
+
+First, there is \textbf{symmetrical cryptography}.
+It is called symmetrical because a symmetric cryptographic algorithm uses one key to encrypt and decrypt plaintext.
+Both the sender and the receiver know the key.
+
+Second, there is \textbf{asymmetric cryptography}.
+The critical difference is that it uses key pairs instead of one key.
+A key pair consists of a public key that is publicly known and a private key that is only known to its owner.
+They are both mathematically related to one another, which makes several calculations possible.
+First, a private key can sign data. 
+The signature is then verifiable with the public key.
+Like a hand signature, cryptographic signatures can be used to verify that the person holding the private key has taken a specific action.
+For example, the owner can sign a message and prove that it came from them.
+It is further possible to encrypt data with a public key, making it only decryptable by the respective private key.
+
+Third, there are cryptographic functions, called \textbf{hash functions}, that are used for one-way encryption and do not use keys at all.
+A primary property of hash functions is that their output, called hash, is unrelated to the input data.
+Nevertheless, the same input always produces the same output while avoiding collisions, meaning two identical inputs that result in the same output hash.
+One use case for such functions is saving user credentials in a database.
+Instead of saving passwords as plaintext, only their hashes are stored.
+When a user tries to log into their account, the system recalculates the hash and compares it to the one saved in the database.
+\cite{genccouglu2019importance}
+
+\hrule
+By using the hash function sha256 with the input Hello world, the following hash value can be generated.
+\vspace{4pt}
+\begin{equation}
+    \textrm{64ec88ca00b268e5ba1a35678a1b5316d212f4f366b2477232534a8aeca37f3c}
+\end{equation}
+
+\hrule
+\vspace{4pt}
+
+These hashes can be combined into an immutable binary hash tree, called Merkle tree \cite{merkle_tree}.
+The result of a Merkle tree creation is the tree's root hash.
+The root can be used to verify whether a transaction was added during the tree creation.
+Hence, the Merkle tree root serves as a digital fingerprint over the hashes it includes because it cannot be altered after its creation.
+
+\section{Blind Signatures}
+
+In 1982, David Chaum released a paper about a new concept called blind signatures.
+He described a payment system that could provide cryptographic proof of payment.
+Two main goals were to make payments untraceable and unlinkable.
+These targets are achieved by making a bank create cryptographically signed numbers that are usable as monetary units.
+A user with a bank account can then withdraw the signed number from the bank and send it to a shop owner as a payment.
+At that point, the shop owner would deposit the signed number into their bank account.
+As a trusted third party, the bank keeps track of the signed coins without saving personal information and denies the transaction if a coin has already been spent. \cite{chaum1983}
+
+Since every money unit is only a signed number, the bank cannot link it to the user \cite{pointcheval2000}.
+Further, some mathematical properties of this concept are defined.
+First of all, a trusted third party is needed.
+In a digital payment system, a bank would portray this role.
+In addition, the three following functions are needed to make the system work.
+\begin{itemize}
+    \item A signing function \textbf{s'} that is only known to the bank and its publicly known inverse function \textbf{s}.
+    \item A commuting function \textbf{c} and its inverse function \textbf{c'} which are both only known to the payer.
+    \item A predicate \textbf{r} used to check for redundancy
+\end{itemize}
+Chaum describes the system as follows.
+In order to send money from the payer to a shop, they need a certificate \textbf{x} signed by the bank that contains the amount of money they want to spend.
+Since the system is designed to provide anonymity to the payer, they encrypt \textbf{x} using their commuting function \textbf{c}.
+\begin{equation}
+    c\left(x\right) = enc\left(x\right)~.
+\end{equation}
+They then send it to the bank, which uses its signing function to sign the amount using \textbf{s'}.
+\begin{equation}
+    s'\left(enc\left(x\right)\right) = signed\left(enc\left(x\right)\right)~.
+\end{equation}
+The payer receives the signed certificate from the bank afterward. They now use the inverse function \textbf{c'} to get the signed value of \textbf{x}.
+\begin{equation}
+    c'\left(signed\left(enc\left(x\right)\right)\right) = signed\left(x\right)~.
+\end{equation}
+This works because \textbf{c} and \textbf{c'} share commutativity with \textbf{s'} such that
+\begin{equation}
+    c\left( s'\left(x\right) \right) = s'\left( c\left(x\right) \right) ~.
+\end{equation}
+\begin{equation}
+    encrypt\left( signed\left(x\right) \right) = signed\left( encrypt\left(x\right) \right) ~.
+\end{equation}
+As a result, the payer can spend \textbf{signed(x)} in a shop that only needs to verify the signature by using the publicly known inverse \textbf{s}.
+\begin{equation}
+    s\left( signed\left(x\right) \right) = x ~.
+\end{equation}
+The shop then sends the \textbf{signed(x)} back to the bank, checking whether the transaction was spent twice.
+The bank now credits the amount to the shop's account.
+Cryptography makes it possible to verify that the payer cannot spend money they do not own.
+It also grants anonymity to the users of the system.
+However, the system relies on a trusted third party. \cite{chaum1983}
+
+\begin{center}
+	\begin{tabular}{|c c c|} 
+		\hline
+		Problem & Solved & Not Solved \\ [0.5ex] 
+		\hline
+		Double-spending & \checkmark &  \\ [0.5ex]
+		\hline
+		Decentralization &  & X \\ [0.5ex]
+		\hline
+		Privacy & \checkmark &  \\ [0.5ex]
+		%\\ \hline
+		\hline
+	\end{tabular}
+\end{center}
+
+\section{Hashcash}
+One of the fundamental technologies that led to the creation of Bitcoin was presented by Adam Back in 1997 \cite{back1997} to the Cypherpunks mailing list.
+Hashcash was designed as a \textbf{denial-of-service counter measure technique} \cite{back2002}.
+This goal is achieved by using the CPU to compute \textbf{partial hash collisions} while using a certain amount of electrical energy for the calculations.
+The following example explains Beck's idea in a more precise way.
+
+Let us assume a company that wants to acquire new customers for its new product.
+Usually, they can send advertising emails to millions of people daily.
+Since no computational effort is needed to send an email, there is no reason not to use this spam technique.
+Even with a minimal success rate, profits can still be made when a customer buys one of their products due to the advertising.
+
+Hashcash solves this spam issue by requiring such computational effort.
+Before sending an email, the sender must solve a cryptographic puzzle using a hash function.
+Given a text like an email header and a timestamp, a nonce has to be found that, when concatenated to the text, results in a hash that contains a certain amount of leading zero bits.
+
+\vspace{4pt}
+\hrule
+
+\begin{center}
+	\begin{quote}
+		\centering 
+		sha256(\textit{Hello world}) =
+		
+		\textit{64ec88ca00b268e5ba1a35678a1b5316d212f4f366b2477232534a8aeca37f3c}
+		\hrule
+		sha256(\textit{Hello world\textbf{600028382}}) =
+		
+		\textit{\textbf{00000}979c7e32777a365712a1bd24ec33c6ddc98bdba259a3a57529bca5665e4}
+	\end{quote}
+\end{center}
+
+The nonce \textbf{600028382} leads to a hash with 20 leading zero bits.
+\hrule
+\vspace{4pt}
+
+Since secure hash functions are non-predictable, one-way functions, the best way to compute a valid solution is to use a brute-force strategy by trying out nonce values.
+If a solution does not contain the right amount of leading zeros, the computation restarts with the nonce incremented by one.
+This process is repeated until a valid hash is found.
+
+Each required leading zero bit doubles the difficulty of finding a valid hash, as the chance is reduced by half with each bit.
+This also means that twice as much computing power is required to randomly find a hash in the same amount of time on average.
+Thus, the difficulty of a valid hash is adjustable by raising or lowering the required bit amount.
+
+While finding a partial hash collision can be time-consuming, verifying whether a given input text results in a particular output hash takes little to no effort.
+The recipient can verify the hash and confirm the computational effort by providing the found nonce in the email. \cite{back1997}
+Consequently, by providing a nonce, it is verifiable that the nonce was generated with a particular amount of work.
+Hence, the process is called \textbf{Proof of Work} (POW).
+The higher the amount of leading zero bits, the longer it took to find it.
+
+Although the system is called Hashcash, it would be unsuitable as standalone money.
+The amount of leading zero bits denominates the value of one hash produced by Hashcash.
+As a result, an increasing amount of money will be created by better computers in the future because better computers produce hashes with more leading zero bits faster.
+Accordingly, this would result in hyperinflation in the long term. 
+In addition, the system does not prevent double-spending.
+
+Nevertheless, using real-world energy to produce valid hashes lays the fundamentals of digital scarcity later used in the Bitcoin protocol. \cite{wirdum_2_2018}
+The Cypherpunks saw the potential for Proof of Work to form a foundation for digital money.
+Since digital money should not be duplicatable like regular data, scarcity could be achieved by using Proof of Work in some form.
+They concluded that a Hashcash Proof of Work token was the direct proof of real-world energy usage needed to create the hash, thus making it a digital representation of energy. \cite{wirdum_5_2018}
+
+\begin{center}
+	\begin{tabular}{|c c c|} 
+		\hline
+		Problem & Solved & Not Solved \\ [0.5ex] 
+		\hline
+		Double-spending &  & X \\ [0.5ex]
+		\hline
+		Decentralization & \checkmark  & \\ [0.5ex]
+		\hline
+		Hyper-Inflation &  & X \\ [0.5ex]
+		\hline
+		Privacy & \checkmark &  \\ [0.5ex]
+		%\\ \hline
+		\hline
+	\end{tabular}
+\end{center}
+
+\section{B-Money}
+After Hashcash was published, it took about one year for Wei Dai to publish his ideas about a peer-to-peer money system in 1998 \cite{dai1998}.
+He was also inspired by the Cypherpunk movement of the 1990s and tried to create a concept that would fully exclude the government.
+To preserve the privacy of its users, every user would get a public key as a pseudonym.
+Dai knew his implementation had flaws, so he presented two approaches to achieve the same functionality.
+The paper also contained the process of digital contracts and how to enforce them without needing a third party.
+However, these ideas are not relevant to the cash system he proposed.
+
+\subsection{Protocol Details}
+The first protocol needs every participant to store the whole database of balances on their computer. 
+In order to establish a way of communication between the participants, the computers would send and receive messages over messaging channels.
+Whenever someone wants to send money, they must sign a money-spending message. After that, the message is published to the peer-to-peer network.
+Verifying that a transaction message is valid and was not created by someone other than the money owner is done by every network participant since each possesses a local copy of the database.
+Although this protocol is similar to a modern blockchain, Dai did not come up with a mechanism to prevent double-spending.
+The second protocol is very similar to \textbf{Proof of Stake}, an alternative consensus mechanism some blockchains use today. \cite{wirdum_3_2018}
+
+\subsection{B-Money creation}
+A problem Dai had to face while creating his ideas was the process of creating units of money.
+The first idea described in his paper required the network participants to publish solvable computational problems to the network.
+These problems are not only solvable, but the computational effort of a valid solution is also verifiable.
+The network would then compensate the user who solved the problem with an equivalent amount of b-money by crediting it to his account.
+
+Dai knew that the evaluation of the right amount of compensation for the problem solver could be a problem.
+As a consequence, he proposed a second idea for money creation.
+The concept relied on four phases.
+The participants propose a new money creation rate in the first phase, followed by a bidding phase.
+Every user who wants to create money has to bid with a computable problem with a defined difficulty.
+After the bidding is done, they start to solve the problem.
+Solving the most challenging problem would result in newly created money for the solver.
+
+As an alternative, Dai proposed a second protocol requiring only some servers to store the database.
+Since this requires trust, they must lock some money as insurance.
+If they try to cheat the system, they lose their insurance.
+Even if every server tried to cheat the system, the attempt would still fail because they need to publish their stored data to the network of users occasionally.
+The network would notice and punish the servers if their data contained falsified information. \cite{dai1998}
+
+\begin{center}
+	\begin{tabular}{|c c c|} 
+    \hline
+	Problem & Solved & Not Solved \\ [0.5ex] 
+	\hline
+	Double-spending & ?  & ? \\ [0.5ex] 
+	\hline
+	Decentralization & \checkmark  & \\ [0.5ex] 
+	\hline
+	Backed by energy & \checkmark & \\ [0.5ex] 
+	\hline
+	Privacy & \checkmark &  \\ [0.5ex]
+	\hline
+	\end{tabular}
+\end{center}
+
+\section{Bit Gold}
+
+In 2001, Nick Szabo concluded that trusted third parties are security holes.
+According to Szabo, personal wealth should not depend on trusted third parties.
+This also applies to money. \cite{szabo2001}
+
+Consequently, in 2005, he revisited an idea he proposed in 1998 about a concept he called Bit Gold.
+It was inspired by the properties of precious metals that people have historically used as money.
+Szabo would later use these attributes to create a digital version of gold called Bit Gold.
+He summarized his idea as a protocol that could transfer and store bits safely without depending on a trusted third party.
+A Proof of Work function is used to create those bits used as units of Bit Gold.
+Szabo further described the following steps on how the system works.
+
+At first, a string is created that is used as an input of a Proof of Work function like Hashcash \cite{back1997} to create an expensive timestamped hash.
+In addition, a distributed ledger has to store them.
+If another user wants to create a new hash, the last saved hash in the ledger will be used as a string to create the new one. 
+Thus, a chain of hashes results.
+Since this concept also relies on Proof of Work functions like hashcash, the value of a unit of Bit Gold is directly tied to the computational effort used to produce the hash.
+In the context of a Hashcash POW token, the value grows the more leading zero bits the token has.
+To counter the fact that technological progress results in better computers and thus in more valuable hashes over a shorter period, every Bit Gold has a timestamp.
+The value of one hash depends not only on its difficulty of creation but also on its creation timestamp.
+As a result, units of Bit Gold are not fungible since every unit has its unique combination of value and time of creation.
+A hash with 30 leading zero bits from 2010 would likely be valued higher than one with the same amount of zero bits created in 2023 because creating the hash in 2010 was more challenging.
+
+Szabo concludes that a banking layer is needed to create bills of equal value backed by units of Bit Gold.
+Having multiple banks would result in a form of decentralization to preserve the system's integrity.
+The network nodes solve the double-spending problem by keeping a local copy of the immutable chain of ownership of a Bit Gold unit. \cite{szabo2005}
+
+However, two additional security threats exist that Bit Gold, by design, is not secure against.
+The first is the potential threat of Sybil attacks.
+Like b-money, Bit Gold stores its database across multiple servers in a decentralized network.
+The ownership of hashes is secured by every network participant who owns a copy of the ledger and agrees on its integrity.
+Nevertheless, there is no protection against multiple dishonest network nodes joining the network and publishing a manipulated version of the database to change its state.
+The second problem is the Byzantine general's problem.
+How should a distributed network reach a consensus about its state while potential enemies inside the network could try to sabotage it?
+In conclusion, Bit Gold has the following properties. \cite{wirdum_4_2018}
+
+\begin{center}
+	\begin{tabular}{|c c c|} 
+    \hline
+	Problem & Solved & Not Solved \\ [0.5ex] 
+	\hline
+	Double-spending & \checkmark &  \\ [0.5ex] 
+	\hline
+	Byzantine generals problem &  & X \\ [0.5ex] 
+	\hline
+	Decentralization & \checkmark  & \\ [0.5ex] 
+	\hline
+	Sybil attacks &  & X \\ [0.5ex] 
+	\hline
+	Backed by energy & \checkmark & \\ [0.5ex] 
+	\hline
+	Privacy & \checkmark &  \\ [0.5ex]  
+	\hline
+	\end{tabular}
+\end{center}
+
+\section{RPOW}
+As already stated, Hashcash does not work as standalone money.
+The proposals of Dai and Szabo relied on Proof of Work to back their money with energy.
+To continue the research in this field, Hal Finney created an implementation that made Hashcash hashes, which he refers to as a Proof of Work token, reusable, called \textbf{Reusable Proof of Work} (RPOW).
+The reason for this is that a user could create a hash with great difficulty and reuse it for new recipients he has not contacted yet.
+Since the Hashcash implementation does not prevent double-spending, every user has a private double-spending database to prevent anyone from sending him a token twice.
+Yet, the database is only known to the user and is not publicly available.
+Although Hashcash counters this fact by assigning a specific purpose to a POW token, there is still the need for a recipient to store received tokens to prevent someone from reusing the same token.
+Finney's idea was to provide an RPOW server that exchanges POW tokens for RPOW tokens.
+Additionally, it stores all exchanged tokens to avoid duplicates of the same hash.
+Inspired by Nick Szabo's Bit gold proposal from 1998, Finney considered RPOW tokens a digital rarity like gold.
+
+Even though the RPOW Concept used a centralized server to provide its functionality, Finney designed it to be tamperproof by hosting the program on an IBM 4758 chip.
+The chip uses a concept called \textbf{trusted computing} \cite{trusted_computing} to verify the system's integrity by providing remote attestation to the users.
+This makes it impossible for Finney to cheat the system, even though he hosted the program himself.
+
+The benefit of this system is that when sent to another user, a POW token will not be discarded after a one-time use.
+Instead, it can be sent to the RPOW server by the recipient immediately.
+In turn, they get a fresh RPOW token with the same value reusable for a new action.
+The old token will be blocked for further use by storing it in the double-spending database.
+This process also allows for splitting or combining tokens.
+Since the computational effort to create a hash collision with a specific difficulty doubles by incrementing the required leading zero bits by one, two RPOW tokens with difficulty 27 equal one RPOW token with difficulty 28. \cite{finney2004}
+Nonetheless, Finney did not design RPOW as a store of value but to exchange proof of energy consumption and thus digitally represented energy. \cite{wirdum_5_2018}
+
+\begin{center}
+	\begin{tabular}{|c c c|} 
+	\hline
+	Problem & Solved & Not Solved \\ [0.5ex] 
+	\hline
+	Double-spending & \checkmark  & \\ [0.5ex] 
+	\hline
+	Decentralization & & X \\ [0.5ex] 
+	\hline
+	Backed by energy & \checkmark & \\ [0.5ex] 
+	\hline
+	Privacy & \checkmark &  \\ [0.5ex]
+	\hline
+	\end{tabular}
+\end{center}

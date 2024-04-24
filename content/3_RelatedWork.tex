@@ -1,0 +1,48 @@
+\chapter{Related Work}
+
+\section{The Bitcoin Blockchain}
+None of the technologies and ideas could solve all the problems of digital cash simultaneously. 
+Yet, the need for such a system grew even further due to the financial crisis starting in 2007.
+The crisis had several causes. 
+Some of them were a housing price bubble in the US caused by the banking sector, a flawed regulatory environment, and the downfall of Lehman Brothers. \cite{baily2009origins}
+Consequently, the Cypherpunks again saw the flaws of a centralized credit-based money system.
+This led Satoshi Nakamoto, an anonymous programmer, to devise an implementation to solve the problems that made former concepts
+unsuitable as digital money.
+As stated in the Bitcoin talk forum, Nakamoto's ideas were greatly influenced by former concepts.
+\begin{quote}
+    \centering 
+    \textit{Bitcoin is an implementation of Wei Dai's b-money proposal […] on Cypherpunks […] in 1998 and Nick Szabo's Bitgold proposal[…].} \cite{satoshi_quote_1}
+\end{quote}
+
+Although the Bitcoin whitepaper was released on the thirty-first of October in 2008, the software and its code were made open source on the third of January in 2009.
+It is the same day Satoshi Nakamoto launched the program for the first time and mined the first Bitcoin block.
+This so-called genesis block also contained a quote referencing the crisis.
+
+\begin{center}
+    \begin{quote}
+        \centering 
+        \textit{Chancellor on brink of second bailout for banks.} \cite{editor_2009_chancellor}
+    \end{quote}
+\end{center}
+
+\section{Ethereum}
+In 2014, Vitalik Buterin, a programmer and co-founder of Bitcoin Magazine, published a whitepaper about a protocol he named Ethereum.
+In his whitepaper, the author first points out different projects that use the decentralized design of Bitcoin to create new projects. 
+He concludes that to build a new decentralized protocol, one could either build a new network with new consensus rules or a second layer on top of Bitcoin.
+While Bitcoin has a scripting language, it is not Turing-complete. 
+Essential concepts like loops do not exist to prevent infinite loops from crashing network nodes. 
+While this design choice makes Bitcoin resilient against attacks, it also limits the possibilities of second-layer solutions.
+Consequently, he envisioned a new blockchain-based system to execute Turing-complete byte code. 
+Thus, developers could implement so-called smart contracts, first described by Nick Szabo \cite{szabo1994}, that are stored and run on the blockchain. \cite{buterin2014}
+Szabo described a smart contract as a digital representation or implementation of legal contracts formalized in code.
+The potential of so-called non-fungible tokens in games implemented using smart contracts is further discussed in \cite{fowler2021}.
+
+Ethereum would be the base layer for so-called decentralized applications (dapps).
+Over 42 days in 2014, Ethereum was funded via a presale. One could buy 2000ETH for around 500 us dollars.
+However, the price was raised step by step later.
+Sixty million Ether were created for the presale, and only 80 percent were sold to the public, while the Ethereum Foundation kept the rest. \cite{eth_presale}
+
+Although the Bitcoin blockchain is only capable of executing basic operations, there are attempts to change this.
+Robin Linus released a paper about BitVM in October of 2023. 
+While Ethereum executes the code on its network nodes, BitVM only uses the Bitcoin Blockchain to verify them.
+As a result, Bitcoin could entirely replace Ethereum's smart contracts, thus making them obsolete. \cite{linus2023}

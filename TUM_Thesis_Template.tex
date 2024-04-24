@@ -1,0 +1,99 @@
+%%%%%%%%%%%%%%%%%%%
+%  placeholders
+%%%%%%%%%%%%%%%%%%%
+
+% chair name not allowed at Department of Informatics
+% remove \phantom{} if you want the chair name on the cover
+\newcommand{\chair}{\phantom{Lehrstuhl f\"ur Musterverfahren}}
+\newcommand{\faculty}{School of Computation, Information and Technology - Informatics}
+\newcommand{\uni}{Technical University of Munich}
+\newcommand{\studycourse}{Informatics: Games Engineering}
+
+\newcommand{\authorname}{Lukas Jonsson}
+\newcommand{\city}{Munich}
+
+\newcommand{\worktype}{Bachelor's Thesis in \studycourse}
+\newcommand{\titleFirstLanguage}{Blockchain and Games: Evaluating Practicality and Impact}
+% German & English needed at Department of Informatics
+\newcommand{\titleForeignLanguage}{Blockchain und Spiele: Bewertung der Anwendbarkeit und Wirkung}
+
+\newcommand{\supervisor}{Prof. Gudrun Klinker, Ph.D.}
+\newcommand{\advisor}{Sandro Weber, Ph.D.}
+
+% set date manually or use \today
+\newcommand{\submissionDate}{March 15, 2024}
+
+
+
+%%%%%%%%%%%%%%%%%%%
+%    settings
+%%%%%%%%%%%%%%%%%%%
+
+% quick settings
+\def\printstyle{twoside} % set to {twoside} for printing, else {oneside}
+%\def\monochromeCover{} % uncomment if you prefer a black TUM logo on the cover
+%\def\monochromeCoverInside{} % uncomment if you prefer a black TUM logo on the inside cover page
+
+% complete settings & packages: see settings.text
+
+\input{settings} 
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%
+%  main document
+%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\frontmatter
+% first part of document before actual content
+
+\include{titlepage}
+\include{titlepage_inside} % needed at Department of Informatics
+
+%\newpage\null\thispagestyle{empty}\newpage
+
+\include{content/EidesstattlicheErklaerung}
+\include{content/Abstract}
+% \include{content/Acknowledgements}
+
+\tableofcontents 
+
+%\newpage\null\thispagestyle{empty}\newpage
+
+
+\mainmatter
+% include chapter files here or write your text directly here
+
+\include{content/1_Motivation}
+\include{content/2_History}
+\include{content/3_RelatedWork}
+\include{content/4_Bitcoin}
+\include{content/5_Ethereum}
+\include{content/6_Evaluation}
+\include{content/7_Conclusion}
+\include{content/8_FutureWork}
+
+\backmatter
+% optional: list of figures
+\listoffigures
+% optional: list of tables
+%\listoftables
+% optional: list of source code listings
+\lstlistoflistings
+
+% your BibTex file
+\bibliography{bib/references.bib}
+
+
+%\appendix
+% include appendix chapters here
+
+% \include{content/AppendixExample}
+
+\end{document}

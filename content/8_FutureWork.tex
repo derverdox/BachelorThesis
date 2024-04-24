@@ -1,0 +1,36 @@
+\chapter{Future Work}
+
+This thesis might serve as a foundation to further expand on what blockchains can be used for.
+While storing external data on a blockchain does not guarantee the truthfulness of the information, there might still be other use cases for blockchains.
+We propose a different view to concentrate on second-layer solutions that do not change a blockchain or store any third-party information directly.
+Instead, layer two protocols could use the blockchain as a distributed timestamping server, which it was initially called by Nakamoto \cite{nakamoto2008}, or as a base layer to prove the state of their network.
+These layers could also choose a more scalable design since the underlying chain is still secure.
+Storing third-party data on these new systems has no drawbacks like storing them on the main chain, making it a better software engineering approach.
+
+\section{Scaling Bitcoin with the Lightning Network}
+The Bitcoin Blockchain creates a fundament for a whole new ecosystem to be built on top. 
+Since its first launch over a decade ago, new systems have been created with Bitcoin as a base settlement layer.
+One of them is the Bitcoin Lightning network \cite{poon2016}, which is capable of routing payments through a network of payment channels that are settled on the Bitcoin blockchain.
+Every payment channel is a wallet that is controlled by two entities. 
+They can transfer coins inside this channel without waiting for the Bitcoin blockchain to verify it in a new block. 
+This results in billions of daily transactions compared to about seven transactions per second on the blockchain. 
+Thus, games could use Bitcoin Lightning as an alternative to a traditional payment infrastructure for micro-payments.
+
+\section{Trusted Timestamping}
+Timestamping is used to prove data's existence at a particular moment.
+Thus, the services that provide such timestamps must be trustworthy.
+In addition, the timestamps must be cryptographically saved from being altered afterward.
+That is where Bitcoin could play an essential role as a distributed time-stamping server.
+The idea of using the Bitcoin blockchain like that is further discussed in \cite{timestamping}.
+The author proposes to store hashes of documents or data on the Bitcoin blockchain, which proves the existence of the data at the time of the block validation.
+As already discussed, storing data on the main chain comes with drawbacks.
+However, the only property a blockchain can prove about third-party data is when it was stored.
+If this is the only property needed and the transaction costs are worth the data, it might be a valid use case that needs further research.
+
+\section{BitVM}
+Instead of storing data directly on a blockchain, BitVM could be used as a second layer that replaces implementations like Ethereum.
+We have already concluded that smart contracts on the Ethereum platform are subject to its scalability issues.
+Further, the contracts need oracles in most cases, creating a contradiction between the initial idea of excluding third parties and the need for trusted data providers and contract enforcers.
+However, when a second layer is used instead, the software engineering drawbacks are not a problem anymore.
+While the use case of smart contracts is still questionable, the blockchain is no longer used to execute them.
+Second-layer smart contract platforms might serve new application areas that need to be discovered by further research in this field.
